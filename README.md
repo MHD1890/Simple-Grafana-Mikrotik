@@ -18,7 +18,7 @@
 ### Deploy with bash script
 
 ```console
-git clone https://github.com/IgorKha/Grafana-Mikrotik.git
+https://github.com/MHD1890/Simple-Grafana-Mikrotik.git
 cd ./Grafana-Mikrotik
 bash ./run.sh --config
 ```
