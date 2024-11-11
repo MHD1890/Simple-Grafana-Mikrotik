@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  grafana:
+    image: grafana/grafana:9.0.5
+    env_file:
+      - .grafana
+    container_name: mk_grafana
+    restart: always
+    volumes:
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    ports:
+      - "3000:3000"
+  
+  prometheus:
+    image: prom/prometheus
+    env_file:
+      - .prometheus
+    user: ${CURRENT_USER}
+    container_name: mk_prometheus
+    restart: always
+    volumes:
+      - ./prometheus/:/etc/prometheus
+      - ./prometheus/data/:/prometheus
+    ports:
+      - "9090:9090"
+
+  snmp_exporter:
+    image: prom/snmp-exporter
+    container_name: mk_snmp_exporter
+    restart: always
+    volumes:
+      - ./snmp/:/etc/snmp_exporter/
+    ports:
+      - "9116:9116"
+    depends_on:
+      - prometheus
